@@ -35,6 +35,12 @@ jobs:
           go mod tidy
           grep bedrock-skin-go go.mod
 
+      - name: Install UPX
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/upx/upx/releases/download/v4.2.4/upx-4.2.4-win64.zip" -OutFile upx.zip
+          Expand-Archive -Path upx.zip -DestinationPath upx
+          Add-Content -Path $env:GITHUB_PATH -Value "$PWD/upx/upx-4.2.4-win64"
+
       - name: Build
         shell: bash
         run: |
